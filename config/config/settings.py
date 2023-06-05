@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # DRF 추가
     'rest_framework',
+    # 사용자 생성 django app 추가
+    'myapp',
 ]
 
 MIDDLEWARE = [
