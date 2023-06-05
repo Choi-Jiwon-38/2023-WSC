@@ -1,7 +1,14 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import Post
 
-class PostSerializer(ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='author.username')
     class Meta:
         model   = Post      # model 지정
-        fields  = '__all__' # 모든 field 지정 
+        fields  = [
+            'pk',
+            'username',
+            'message',
+            'created_at',
+            'updated_at',
+        ]
