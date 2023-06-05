@@ -19,5 +19,6 @@ from django.urls import path, include # include 빼먹지 않고 추가하기!
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')) # 추가
+    path('api-auth/', include('rest_framework.urls')), # 추가
+    path('myapp/', include('myapp.urls')),
 ]
