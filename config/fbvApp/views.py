@@ -11,7 +11,7 @@ def student_list(request):
         serializer  = StudentSerializer(students, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        serializers = StudentSerializer(data=request.data)
+        serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
