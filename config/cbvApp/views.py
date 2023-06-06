@@ -1,7 +1,7 @@
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIVieew           # APIView import
+from rest_framework.views import APIView           # APIView import
 from fbvApp.models import Student                   # 이전에 만든 Student 모델 재사용
 from fbvApp.serializers import StudentSerializer    # 이전에 만든 StudentSerializer 재사용
 
@@ -21,7 +21,7 @@ class StudentList(APIView):
 
 
 # StudentDetail
-class StudnetDetail(APIView):
+class StudentDetail(APIView):
     def get_object(self, pk):
         try:
             return Student.objects.get(pk=pk)
