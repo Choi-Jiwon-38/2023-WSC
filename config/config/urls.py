@@ -20,5 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('fbvApp/', include('fbvApp.urls')),    # include를 사용하여 fbvApp의 urls.py를 참조
-    # path('cbvApp/', include('cbvApp.urls')),    # include를 사용하여 cbvApp의 urls.py를 참조
+    path('cbvApp/', include('cbvApp.urls')),    # include를 사용하여 cbvApp의 urls.py를 참조
 ]
