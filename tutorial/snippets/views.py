@@ -18,7 +18,8 @@ from snippets.serializers import UserSerializer
 
 # auth, permission
 from rest_framework import permissions
-
+from snippets.permissions import IsOwnerOrReadOnly
+from django.http import Http404
 
 class UserList(generics.ListAPIView):
     queryset            = User.objects.all()
@@ -32,7 +33,7 @@ class SnippetList(APIView):
     """
     List all code snippets, or create a new snippet.
     """
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def get(self, request, format=None):
         snippets = Snippet.objects.all()
@@ -53,7 +54,7 @@ class SnippetDetail(APIView):
     """
     Retrieve, update or delete a code snippet.
     """
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     # request, pk, formant=None
 
@@ -61,7 +62,7 @@ class SnippetDetail(APIView):
         try:
             return Snippet.objects.get(pk=pk)
         except Snippet.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            raise Http404
 
     def get(self, request, pk):
         snippet = self.get_object(pk=pk)
