@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/django,macos,visualstudio
-# Edit at https://www.toptal.com/developers/gitignore?templates=django,macos,visualstudio
-
 ### Django ###
 *.log
 *.pot
@@ -584,11 +581,22 @@ FodyWeavers.xsd
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/*.code-snippets
 *.code-workspace
 
 # Local History for Visual Studio Code
 .history/
 
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/django,macos,visualstudiocode
 # Windows Installer files from build outputs
 *.cab
 *.msi
