@@ -3,11 +3,26 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer
+from rest_framework import status
 
 # for APIView, Status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+# user
+from django.contrib.auth.models import User
+# 아래 두 개도 추가해야 됨
+from rest_framework import generics
+from snippets.serializers import UserSerializer
+
+class UserList(generics.ListAPIView):
+    queryset            = User.objects.all()
+    serializer_class    = UserSerializer
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset            = User.objects.all()
+    serializer_class    = UserSerializer
 
 class SnippetList(APIView):
     """
@@ -19,12 +34,14 @@ class SnippetList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = SnippetSerializer(data=request.data)
+        serializer = SnippetSerializer(data=request.data , context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def snippet_detail(request, pk, formant=None):
