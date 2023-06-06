@@ -8,7 +8,7 @@ from fbvApp.serializers import StudentSerializer
 def student_list(request):
     if request.method == 'GET':
         students    = Student.objects.all()
-        serializers = StudentSerializer(student, many=True)
+        serializer  = StudentSerializer(students, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         serializers = StudentSerializer(data=request.data)
